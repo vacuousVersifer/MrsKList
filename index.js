@@ -7,7 +7,7 @@ const server = http.createServer(app);
 const socketio = require("socket.io");
 const io = socketio(server);
 
-const listener = server.listen(process.env.PORT, () => {
+const listener = server.listen(4130, () => {
   console.log(`Listening on port ${listener.address().port}`);
 });
 
@@ -83,6 +83,10 @@ io.on("connection", socket => {
       
       socket.emit("login respond", results)
     })
+  });
+
+  socket.on("register user", newCredentials => {
+    console.log(newCredentials);
   })
 
   socket.on("disconnect", () => {

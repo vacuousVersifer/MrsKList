@@ -1,0 +1,25 @@
+{
+  "1": {
+    "name": "Gilmore Girls",
+    "watched": "In Progress",
+    "types": {
+      "must": true,
+      "funny": true,
+      "commit": true,
+      "scary": true
+    },
+    "notes": "(Beware the Gilmore Girls)"
+  },
+  "2": {
+    "name": "Attack on Titan",
+    "watched": "Nope",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": true
+    },
+    "notes": ""
+  },
+  "count": 2
+}

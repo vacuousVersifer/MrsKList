@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Mrs. K's Anime to Watch List</title>
+
+    <link
+      rel="shortcut icon"
+      type="image/jpg"
+      href="https://cdn.glitch.com/ec82cb3a-8efb-4210-ac1e-80fe5bb99c81%2FLetter%20K.ico?v=1615901281538"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="login.js" defer></script>
+  </head>
+  <body>
+    <h1>Mrs. K's Anime to Watch List</h1>
+
+    <h3>Login</h3>
+    <form id="loginForm">
+      <input
+        type="text"
+        autocomplete="off"
+        placeholder="Enter your code here"
+        id="loginUsername"
+      />
+      <br /><br />
+      <input
+        type="password"
+        autocomplete="off"
+        placeholder="Enter your password here"
+        id="loginPassword"
+      />
+      <br /><br />
+      <input type="submit" value="Login!" />
+    </form>
+    <p id="loginError"></p>
+
+    <h4>Or</h4>
+
+    <h3>Register</h3>
+    <form id="registerForm">
+      <p>This should be your first name</p>
+      <input
+        type="text"
+        autocomplete="off"
+        id="registerName"
+        placeholder="Enter first name here"
+      />
+      <br />
+      <p>This should be your six digit school code</p>
+      <input
+        type="text"
+        autocomplete="off"
+        id="registerUsername"
+        placeholder="Enter code here"
+      />
+      <br />
+      <p>This should be your password (Please don't use one you use a lot, I
+        could be making a fatal mistake with password safety)</p>
+      <input
+        type="text"
+        autocomplete="off"
+        id="registerPassword"
+        placeholder="Enter password here"
+      />
+      <br />
+      <p>Confirm your password</p>
+      <input
+        type="text"
+        autocomplete="off"
+        id="registerPasswordConfirm"
+        placeholder="Enter password again here"
+      />
+      <br /><br />
+      <input type="submit" value="Register!" />
+    </form>
+
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js" defer></script>
+  </body>
+</html>

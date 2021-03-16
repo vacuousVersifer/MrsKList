@@ -1,0 +1,89 @@
+:root {
+  --pink: #f72585;
+  --purple: #480ca8;
+  --periwinkle: #3f37c9;
+  --aqua: #4cc9f0;
+  --lightgray: #f3f3f3;
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  background: #FFFFFF;
+  margin: 2em;
+}
+
+h1 {
+  color: #ff7c7c;
+}
+
+table {
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
+}
+
+th {
+  color: white;
+}
+
+.watched,
+.name {
+  background: var(--pink);
+  border-bottom: 5px solid black;
+}
+
+.type {
+  background: var(--periwinkle);
+}
+
+.notes {
+  background: var(--aqua);
+  border-bottom: 5px solid black;
+}
+
+.must.header,
+.commit.header, 
+.funny.header, 
+.scary.header {
+  border-bottom: 5px solid black;
+}
+
+
+.must,
+.shadow.must {
+  background: var(--pink);
+}
+
+.commit,
+.shadow.commit {
+  background: var(--periwinkle);
+}
+
+.funny,
+.shadow.funny {
+  background: var(--purple);
+}
+
+.scary,
+.shadow.scary {
+  background: var(--aqua);
+}
+
+.shadow {
+  background: var(--lightgray);
+}
+
+.loginButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+#loginError,
+#registerError {
+  color: red;
+}

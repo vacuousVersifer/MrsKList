@@ -24,13 +24,28 @@ $(document).ready(() => {
 
       let lastRow = $("<tr/>").appendTo(table.find("tbody:last"));
       $.each(rowData, (colIndex, c) => {
-        let newRow = $("<td/>").text(c);
+        let newRow;
+        if(c != "APPROVE/DENY") {
+          newRow = $("<td/>").text(c);
+        } else {
+          let approveButton = $("<button>Approve</button>");
+          let denyButton = $("<button>Deny</button>");
+          
+          approveButton.click(() => {
+            console.log("Approve")
+          })
+          
+          denyButton.click(() => {
+            console.log("Deny")
+          })  
+          
+          newRow = $("<td/>").append(approveButton);
+          newRow.append(denyButton)
+        }
         
         if(rowIndex % 2 == 0) {
           newRow.addClass("shadow");
         }
-        
-        if(colIndex == 0) {}
         
         if(colIndex == 2 && must) {
           newRow.addClass("must");

@@ -62,6 +62,10 @@ io.on("connection", socket => {
     socket.emit("got entries", entries)
   });
   
+  socket.on("get suggestions", () => {
+    socket.emit("got suggestions", suggestions)
+  })
+  
   socket.on("login attempt", credentials => {
     let found = false;
     for(let i = 1; i <= users.count; i++) {

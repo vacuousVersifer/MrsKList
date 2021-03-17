@@ -21,11 +21,6 @@ $(document).ready(() => {
     } else if(currentUser.type == "normal") {
       $("#editBox").text("")
       $("#editBox").append("<a href='/suggest'>Suggest an Anime</a>")
-    } else if(currentUser.type == "admin") {
-      $("#editBox").text("")
-      $("#editBox").append("<a href='/suggest'>Suggest an Anime</a>")
-      $("#editBox").append("<br>")
-      $("#editBox").append("<a href='/review'>Review Suggestions</a>")
     }
   });
 

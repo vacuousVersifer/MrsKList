@@ -34,6 +34,9 @@ app.get("/login", (req, res) => {
 app.get("/suggest", (req, res) => {
   res.sendFile(`${__dirname}/views/suggest.html`);
 });
+app.get("/review", (req, res) => {
+  res.sendFile(`${__dirname}/views/review.html`);
+});
 
 const fs = require("fs");
 const crypto = require("crypto");

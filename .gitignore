@@ -1,0 +1,6 @@
+.glitch-assets
+node_modules/
+package-lock.json
+
+.env
+.data/

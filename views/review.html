@@ -16,17 +16,17 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="/socket.io/socket.io.js" defer></script>
-    <script src="new.js" defer></script>
+    <script src="review.js" defer></script>
   </head>
   <body>
     <h1>Mrs. K's Anime to Watch List</h1>
 
     <table id="table">
       <tr>
-        <th class="watched" rowspan="2">Watched</th>
+        <th class="watched" rowspan="2">Approve/Deny</th>
         <th class="name" rowspan="2">Name</th>
         <th class="type" colspan="4">Type</th>
-        <th class="notes" rowspan="2">Notes</th>
+        <th class="notes" rowspan="2">Suggestor</th>
       </tr>
       <tr>
         <th class="must header">Must</th>
@@ -35,9 +35,9 @@
         <th class="scary header">Scary</th>
       </tr>
     </table>
-
-    <div class="loginButton">
-      <a href="/login" id="loginLink">Click Here to Login</a>
+    
+    <div id="editBox">
+      <a href="/">Return to List</a>
     </div>
 
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>

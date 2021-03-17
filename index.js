@@ -66,6 +66,12 @@ io.on("connection", socket => {
     socket.emit("got suggestions", suggestions)
   })
   
+  socket.on("update suggestion", suggestionUpdate => {
+    for(let i = 0; i < suggestions.length; i++) {
+      
+    }
+  })
+  
   socket.on("login attempt", credentials => {
     let found = false;
     for(let i = 1; i <= users.count; i++) {

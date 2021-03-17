@@ -7,7 +7,15 @@ const server = http.createServer(app);
 const socketio = require("socket.io");
 const io = socketio(server);
 
-const listener = server.listen(4130, () => {
+const dotenv = require("dotenv");
+dotenv.config();
+
+const Port = process.env.PORT;
+const SecretKey = process.env.SECRET_KEY;
+const EntriesPath = process.env.ENTRIES_PATH;
+const UsersPath = process.env.USERS_PATH;
+
+const listener = server.listen(Port, () => {
   console.log(`Listening on port ${listener.address().port}`);
 });
 
@@ -28,25 +36,8 @@ const crypto = require("crypto");
 let currentUsers = [];
 
 let clicks = parseInt(fs.readFileSync("clicks.txt", "utf-8"), 10);
-let entries = JSON.parse(fs.readFileSync("entries.json", "utf-8"));
-let users = JSON.parse(fs.readFileSync("users.json", "utf-8"));
-
-// let newEntry = {
-//   name: "Attack on Titan",
-//   watched: "NOT_STARTED",
-//   types: {
-//     must: true,
-//     funny: false,
-//     commit: false,
-//     scary: true
-//   },
-//   notes: "(Weird huge titans attack a city? Idk, another cousin watches this)"
-// };
-
-// entries.count++
-// entries[entries.count] = newEntry;
-
-// fs.writeFileSync("./entries.json", JSON.stringify(entries, null, 2))
+let entries = JSON.parse(fs.readFileSync(EntriesPath, "utf-8"));
+let users = JSON.parse(fs.readFileSync(UsersPath, "utf-8"));
 
 io.on("connection", socket => {
   console.log(`User ${socket.id} has connected`);
@@ -69,8 +60,13 @@ io.on("connection", socket => {
     let found = false;
     for(let i = 1; i <= users.count; i++) {
       let user = users[i];
+
+      let decryptedPassword = decrypt({content: user.password, iv: user.id});
       
-      if(credentials.username == user.code && credentials.password == user.password) {
+      let codeCorrect = (credentials.code == user.code);
+      let passwordCorrect = (credentials.password == decryptedPassword);
+      
+      if(codeCorrect && passwordCorrect) {
         found = true;
       }
     }
@@ -86,7 +82,17 @@ io.on("connection", socket => {
   });
 
   socket.on("register user", newCredentials => {
-    console.log(newCredentials);
+    let hash = encrypt(newCredentials.password);
+    let newUser = {
+      name: newCredentials.name,
+      code: newCredentials.code,
+      password: hash.content,
+      id: hash.iv
+    };
+
+    users.count++;
+    users[users.count] = newUser;
+    fs.writeFileSync(UsersPath, JSON.stringify(users, null, 2));
   })
 
   socket.on("disconnect", () => {
@@ -98,3 +104,25 @@ io.on("connection", socket => {
     }
   });
 });
+
+const Algorithm = process.env.ALGORITHM;
+
+function encrypt(text) {
+  let iv = crypto.randomBytes(16);
+  let cipher = crypto.createCipheriv(Algorithm, SecretKey, iv);
+
+  let encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+
+  return {
+    iv: iv.toString("hex"),
+    content: encrypted.toString("hex")
+  };
+};
+
+function decrypt(hash) {
+    let decipher = crypto.createDecipheriv(Algorithm, SecretKey, Buffer.from(hash.iv, "hex"));
+
+    let decrpyted = Buffer.concat([decipher.update(Buffer.from(hash.content, "hex")), decipher.final()]);
+
+    return decrpyted.toString();
+};

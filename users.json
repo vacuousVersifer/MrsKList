@@ -1,8 +1,9 @@
 {
-  "count": 1,
   "1": {
     "name": "Bruce",
     "code": "687676",
-    "password": "test"
-  }
+    "password": "e34665d0",
+    "id": "3b49f64f299500bd56e391af03479987"
+  },
+  "count": 1
 }

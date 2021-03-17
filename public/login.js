@@ -44,6 +44,8 @@ $(document).ready(() => {
   registerForm.submit(e => {
     e.preventDefault();
 
+    $("#registerError").text("");
+
     let code = registerCode.val();
     let password = registerPassword.val();
     let passwordConfirm = registerPasswordConfirm.val();
@@ -51,6 +53,11 @@ $(document).ready(() => {
 
     let codeValid = true;
     let passwordValid = (password == passwordConfirm);
+    let nameValid = (!name.length < 1);
+
+    if(!nameValid) {
+      $("#registerError").text("You must enter a value for your name");
+    }
 
     if(!(password && passwordConfirm)) {
       $("#registerError").text("You must enter values for your passwords");
@@ -68,13 +75,12 @@ $(document).ready(() => {
       $("#registerError").text("Your code should be a continuous string of numbers, with no spaces");
     }
 
-    console.log(code)
     if(code.length < 1) {
       codeValid = false;
       $("#registerError").text("You need to enter something for your code");
     }
 
-    if(codeValid && passwordValid) {
+    if(codeValid && passwordValid && nameValid) {
       let newCredentials = {
         code,
         password,

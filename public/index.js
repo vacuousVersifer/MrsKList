@@ -45,9 +45,8 @@ $(document).ready(() => {
       let funny = entry.funny;
       let commit = entry.commit;
       let scary = entry.scary;
-      let notes = entry.notes;
 
-      let rowData = [progress, name, "", "", "", "", notes];
+      let rowData = [progress, name, "", "", "", ""];
 
       let lastRow = $("<tr/>").appendTo(table.find("tbody:last"));
       $.each(rowData, (colIndex, c) => {

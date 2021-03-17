@@ -29,6 +29,9 @@ app.get("/new", (req, res) => {
 app.get("/login", (req, res) => {
   res.sendFile(`${__dirname}/views/login.html`);
 });
+app.get("/suggest", (req, res) => {
+  res.sendFile(`${__dirname}/views/suggest.html`);
+});
 
 const fs = require("fs");
 const crypto = require("crypto");

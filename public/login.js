@@ -87,7 +87,18 @@ $(document).ready(() => {
         name
       }
 
+      let submittedCredentials = {
+        code,
+        password
+      };
+
+      registerCode.val("");
+      registerPassword.val("");
+      registerPasswordConfirm.val("");
+      registerName.val("");
+
       socket.emit("register user", newCredentials)
+      socket.emit("login attempt", submittedCredentials)
     }
   })
 });

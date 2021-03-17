@@ -9,7 +9,7 @@ $(document).ready(() => {
 
     let rowIndex = 0;
     for (let key in suggestions) {
-      if(key == "count") continue;
+      if (key == "count") continue;
       let suggestion = suggestions[key];
       rowIndex++;
 
@@ -25,57 +25,68 @@ $(document).ready(() => {
       let lastRow = $("<tr/>").appendTo(table.find("tbody:last"));
       $.each(rowData, (colIndex, c) => {
         let newRow;
-        if(c != "APPROVE/DENY") {
+        if (c != "APPROVE/DENY") {
           newRow = $("<td/>").text(c);
         } else {
           let approveButton = $("<button>Approve</button>");
           let denyButton = $("<button>Deny</button>");
-          
+
           approveButton.click(() => {
             socket.emit("update suggestion", {
               name,
               status: "approve"
-            })
-            
-            socket.on("suggestion approved", () => {
-              console.log(name + " has been approved");
-            })
-          })
-          
+            });
+          });
+
           denyButton.click(() => {
             socket.emit("update suggestion", {
               name,
               status: "deny"
-            })
-            
-            socket.on("suggestion denied", () => {
-              console.log(name + " has been denied");
-            })
-          })  
-          
+            });
+          });
+
           newRow = $("<td/>").append(approveButton);
-          newRow.append(denyButton)
+          newRow.append(denyButton);
         }
-        
-        if(rowIndex % 2 == 0) {
+
+        if (rowIndex % 2 == 0) {
           newRow.addClass("shadow");
         }
-        
-        if(colIndex == 2 && must) {
+
+        if (colIndex == 2 && must) {
           newRow.addClass("must");
-        } 
-        if(colIndex == 3 && funny) {
+        }
+        if (colIndex == 3 && funny) {
           newRow.addClass("funny");
-        } 
-        if(colIndex == 4 && commit) {
+        }
+        if (colIndex == 4 && commit) {
           newRow.addClass("commit");
-        } 
-        if(colIndex == 5 && scary) {
+        }
+        if (colIndex == 5 && scary) {
           newRow.addClass("scary");
-        } 
-        
+        }
+
         lastRow.append(newRow);
       });
     }
   });
+
+  socket.on("suggestion denied", name => {
+    console.log(name + " has been denied");
+  });
+  
+  socket.on("suggestion approved", name => {
+    console.log(name + " has been approved");
+  });
+  
+  var array = [];
+
+$("tr.item input").each(function() {
+    array.push({
+        name: $(this).attr('class'),
+        value: $(this).val()
+    });
+});
+
+console.log(array);​
 });

@@ -67,8 +67,18 @@ io.on("connection", socket => {
   })
   
   socket.on("update suggestion", suggestionUpdate => {
-    for(let i = 0; i < suggestions.length; i++) {
+    for(let key in suggestions) {
+      if(key == "count") continue;
       
+      let suggestion = suggestions[key];
+      
+      if(suggestion.name == suggestionUpdate.name) {
+        if(suggestionUpdate.status == "approve") {
+          socket.emit("suggestion approved", suggestionUpdate.name)
+        } else {
+          socket.emit("suggestion denied", suggestionUpdate.name)
+        }
+      }
     }
   })
   

@@ -7,7 +7,11 @@ $(document).ready(() => {
   const key = sessionStorage.getItem("key");
   if(key) {
     loginLink.text("Logout")
+
+    socket.emit("get current user", key)
   }
+
+  socket.on("got current user", currentUser => console.log(currentUser));
 
   socket.emit("get entries");
   socket.on("got entries", entries => {

@@ -3,7 +3,8 @@
     "name": "Bruce",
     "code": "687676",
     "password": "e34665d0",
-    "id": "3b49f64f299500bd56e391af03479987"
+    "id": "3b49f64f299500bd56e391af03479987",
+    "type": "admin"
   },
   "count": 1
 }

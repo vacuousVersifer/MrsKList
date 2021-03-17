@@ -41,7 +41,6 @@ let users = JSON.parse(fs.readFileSync(UsersPath, "utf-8"));
 
 io.on("connection", socket => {
   console.log(`User ${socket.id} has connected`);
-  currentUsers.push({ id: socket.id });
 
   socket.on("get clicks", () => {
     socket.emit("got clicks", clicks);
@@ -72,14 +71,48 @@ io.on("connection", socket => {
     }
     
     crypto.randomBytes(48, (err, buffer) => {
+      let key = buffer.toString("hex");
+
+      let newCurrentUser = {
+        key,
+        code: credentials.code
+      }
+
+      currentUsers.push(newCurrentUser);
+
       let results = {
         result: found,
-        key: buffer.toString("hex")
+        key: found ? key : undefined
       }
       
       socket.emit("login respond", results)
     })
   });
+
+  socket.on("get current user", key => {
+    let currentUserToReturn = undefined;
+
+    for(let i = 0; i < currentUsers.length; i++) {
+      let currentUser = currentUsers[i];
+
+      if(currentUser.key == key) {
+        for(let key in users) {
+          let user = users[key];
+
+          console.log(currentUser.code);
+          console.log(user.code)
+          if(currentUser.code == user.code) {
+            currentUserToReturn = {
+              code: currentUser.code,
+              type: user.type
+            }
+          }
+        }
+      }
+    }
+
+    socket.emit("got current user", currentUserToReturn);
+  })
 
   socket.on("register user", newCredentials => {
     let hash = encrypt(newCredentials.password);
@@ -87,7 +120,8 @@ io.on("connection", socket => {
       name: newCredentials.name,
       code: newCredentials.code,
       password: hash.content,
-      id: hash.iv
+      id: hash.iv,
+      type: "normal"
     };
 
     users.count++;
@@ -97,11 +131,6 @@ io.on("connection", socket => {
 
   socket.on("disconnect", () => {
     console.log(`User ${socket.id} has disconnected`);
-    for (let i = 0; i < currentUsers.length; i++) {
-      if (currentUsers[i].id == socket.id) {
-        currentUsers.splice(i, 1);
-      }
-    }
   });
 });
 

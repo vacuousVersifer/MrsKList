@@ -14,6 +14,9 @@ const Port = process.env.PORT;
 const SecretKey = process.env.SECRET_KEY;
 const EntriesPath = process.env.ENTRIES_PATH;
 const UsersPath = process.env.USERS_PATH;
+const Algorithm = process.env.ALGORITHM;
+
+console.log([Port, SecretKey, EntriesPath, UsersPath, Algorithm])
 
 const listener = server.listen(Port, () => {
   console.log(`Listening on port ${listener.address().port}`);
@@ -136,8 +139,6 @@ io.on("connection", socket => {
     console.log(`User ${socket.id} has disconnected`);
   });
 });
-
-const Algorithm = process.env.ALGORITHM;
 
 function encrypt(text) {
   let iv = crypto.randomBytes(16);

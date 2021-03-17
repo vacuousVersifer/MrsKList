@@ -3,70 +3,102 @@
 $(document).ready(() => {
   const socket = io();
   
-  const loginLink = $("#loginLink");
-  const key = sessionStorage.getItem("key");
-  let currentUser;
-
-  if(key) {
-    loginLink.text("Logout")
-
-    socket.emit("get current user", key)
-  }
-
-  socket.on("got current user", recievedCurrentUser => {
-    currentUser = recievedCurrentUser
-
-    if(!currentUser) {
-      $("#editBox").text("Please resign in");
-    } else if(currentUser.type == "normal") {
-      $("#editBox").text("")
-      $("#editBox").append("<a href='/suggest'>Suggest an Anime</a>")
+  // Login
+  const loginForm = $("#loginForm");
+  const loginCode = $("#loginCode");
+  const loginPassword = $("#loginPassword");
+  
+  // Register
+  const registerForm = $("#registerForm");
+  const registerName = $("#registerName")
+  const registerCode = $("#registerCode");
+  const registerPassword = $("#registerPassword");
+  const registerPasswordConfirm = $("#registerPasswordConfirm");
+  
+  loginForm.submit(e => {
+    e.preventDefault();
+    
+    let submittedCredentials = {
+      code: loginCode.val(),
+      password: loginPassword.val()
+    };
+    
+    loginCode.val("");
+    loginPassword.val("");
+    
+    socket.emit("login attempt", submittedCredentials)
+  })
+  
+  socket.on("login respond", results => {
+    let result = results.result;
+    let key = results.key;
+    
+    if(result) {
+      sessionStorage.setItem("key", key);
+      window.location.replace("/new");
+    } else {
+      $("#loginError").text("Sorry, those credentials are invalid!")
     }
-  });
+  })
+  
+  registerForm.submit(e => {
+    e.preventDefault();
 
-  socket.emit("get entries");
-  socket.on("got entries", entries => {
-    const table = $("#table");
+    $("#registerError").text("");
 
-    let rowIndex = 0;
-    for (let key in entries) {
-      if(key == "count") return;
-      let entry = entries[key];
-      rowIndex++;
+    let code = registerCode.val();
+    let password = registerPassword.val();
+    let passwordConfirm = registerPasswordConfirm.val();
+    let name = registerName.val();
 
-      let progress = entry.watched;
-      let name = entry.name;
-      let must = entry.types.must;
-      let funny = entry.types.funny;
-      let commit = entry.types.commit;
-      let scary = entry.types.scary;
-      let notes = entry.notes;
+    let codeValid = true;
+    let passwordValid = (password == passwordConfirm);
+    let nameValid = (!name.length < 1);
 
-      let rowData = [progress, name, "", "", "", "", notes];
-
-      let lastRow = $("<tr/>").appendTo(table.find("tbody:last"));
-      $.each(rowData, (colIndex, c) => {
-        let newRow = $("<td/>").text(c);
-        
-        if(rowIndex % 2 == 0) {
-          newRow.addClass("shadow");
-        }
-        
-        if(colIndex == 2 && must) {
-          newRow.addClass("must");
-        } 
-        if(colIndex == 3 && funny) {
-          newRow.addClass("funny");
-        } 
-        if(colIndex == 4 && commit) {
-          newRow.addClass("commit");
-        } 
-        if(colIndex == 5 && scary) {
-          newRow.addClass("scary");
-        } 
-        
-        lastRow.append(newRow);
-      });
+    if(!nameValid) {
+      $("#registerError").text("You must enter a value for your name");
     }
-  });
+
+    if(!(password && passwordConfirm)) {
+      $("#registerError").text("You must enter values for your passwords");
+    }
+
+    if(!passwordValid) {
+      $("#registerError").text("Your passwords do not match");
+    }
+
+    for(let i = 0; i < code.length; i++) {
+      if(!Number.isInteger(parseInt(code[i]))) codeValid = false;
+    }
+
+    if(!codeValid) {
+      $("#registerError").text("Your code should be a continuous string of numbers, with no spaces");
+    }
+
+    if(code.length < 1) {
+      codeValid = false;
+      $("#registerError").text("You need to enter something for your code");
+    }
+
+    if(codeValid && passwordValid && nameValid) {
+      let newCredentials = {
+        code,
+        password,
+        name
+      }
+
+      let submittedCredentials = {
+        code,
+        password
+      };
+
+      registerCode.val("");
+      registerPassword.val("");
+      registerPasswordConfirm.val("");
+      registerName.val("");
+
+      socket.emit("register user", newCredentials)
+      socket.emit("login attempt", submittedCredentials)
+    }
+  })
 });

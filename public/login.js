@@ -35,7 +35,7 @@ $(document).ready(() => {
     
     if(result) {
       sessionStorage.setItem("key", key);
-      window.location.replace("/new");
+      window.location.replace("/");
     } else {
       $("#loginError").text("Sorry, those credentials are invalid!")
     }

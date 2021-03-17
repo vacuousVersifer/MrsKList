@@ -25,9 +25,6 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/views/index.html`);
 });
-app.get("/new", (req, res) => {
-  res.sendFile(`${__dirname}/views/new.html`);
-});
 app.get("/login", (req, res) => {
   res.sendFile(`${__dirname}/views/login.html`);
 });

@@ -103,8 +103,6 @@ io.on("connection", socket => {
         for(let key in users) {
           let user = users[key];
 
-          console.log(currentUser.code);
-          console.log(user.code)
           if(currentUser.code == user.code) {
             currentUserToReturn = {
               code: currentUser.code,
@@ -144,6 +142,12 @@ io.on("connection", socket => {
     fs.writeFileSync(UsersPath, JSON.stringify(users, null, 2));
     
     socket.emit("register user completed")
+  })
+  
+  socket.on("suggestion", suggestion => {
+    console.log(suggestion);
+    
+    socket.emit("suggestion respond", true)
   })
 });
 

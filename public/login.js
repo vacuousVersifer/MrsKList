@@ -41,6 +41,8 @@ $(document).ready(() => {
     }
   })
   
+  let submittedCredentials
+  
   registerForm.submit(e => {
     e.preventDefault();
 
@@ -87,7 +89,7 @@ $(document).ready(() => {
         name
       }
 
-      let submittedCredentials = {
+      submittedCredentials = {
         code,
         password
       };
@@ -98,7 +100,14 @@ $(document).ready(() => {
       registerName.val("");
 
       socket.emit("register user", newCredentials)
-      socket.emit("login attempt", submittedCredentials)
     }
+  })
+  
+  socket.on("register user completed", () => {
+    socket.emit("login attempt", submittedCredentials)
+  })
+  
+  socket.on("register user code taken", () => {
+    $("#registerError").text("That code is already taken!");
   })
 });

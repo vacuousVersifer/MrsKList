@@ -16,8 +16,6 @@ const EntriesPath = process.env.ENTRIES_PATH;
 const UsersPath = process.env.USERS_PATH;
 const Algorithm = process.env.ALGORITHM;
 
-console.log([Port, SecretKey, EntriesPath, UsersPath, Algorithm])
-
 const listener = server.listen(Port, () => {
   console.log(`Listening on port ${listener.address().port}`);
 });
@@ -46,8 +44,6 @@ let entries = JSON.parse(fs.readFileSync(EntriesPath, "utf-8"));
 let users = JSON.parse(fs.readFileSync(UsersPath, "utf-8"));
 
 io.on("connection", socket => {
-  console.log(`User ${socket.id} has connected`);
-
   socket.on("get clicks", () => {
     socket.emit("got clicks", clicks);
   });
@@ -121,6 +117,17 @@ io.on("connection", socket => {
   })
 
   socket.on("register user", newCredentials => {
+    for(let key in users) {
+      if(key == "count") continue;
+      
+      let user = user[key];
+      
+      if(newCredentials.code == user.code) {
+        socket.emit("register user code taken")
+        return;
+      }
+    }
+    
     let hash = encrypt(newCredentials.password);
     let newUser = {
       name: newCredentials.name,
@@ -133,18 +140,13 @@ io.on("connection", socket => {
     users.count++;
     users[users.count] = newUser;
     fs.writeFileSync(UsersPath, JSON.stringify(users, null, 2));
+    
+    socket.emit("register user completed")
   })
-
-  socket.on("disconnect", () => {
-    console.log(`User ${socket.id} has disconnected`);
-  });
 });
 
 function encrypt(text) {
   let iv = crypto.randomBytes(16);
-  
-  console.log(SecretKey.length)
-  console.log(iv.length)
   
   let cipher = crypto.createCipheriv(Algorithm, SecretKey, iv);
 

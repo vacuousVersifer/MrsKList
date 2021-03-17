@@ -43,7 +43,7 @@ $(document).ready(() => {
       funny,
       commit,
       scary,
-      key
+      code: currentUser.code
     };
 
     if (currentUser) {

@@ -145,7 +145,9 @@ io.on("connection", socket => {
   })
   
   socket.on("suggestion", suggestion => {
-    console.log(suggestion);
+    suggestions.count++;
+    suggestions[suggestions.count] = suggestion;
+    fs.writeFileSync(SuggestionsPath, JSON.stringify(suggestions, null, 2));
     
     socket.emit("suggestion respond", true)
   })

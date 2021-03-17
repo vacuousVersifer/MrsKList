@@ -5,9 +5,24 @@ $(document).ready(() => {
   
   const loginLink = $("#loginLink");
   const key = sessionStorage.getItem("key");
+  let currentUser;
+
   if(key) {
     loginLink.text("Logout")
+
+    socket.emit("get current user", key)
   }
+
+  socket.on("got current user", recievedCurrentUser => {
+    currentUser = recievedCurrentUser
+
+    if(!currentUser) {
+      $("#editBox").text("Please resign in");
+    } else if(currentUser.type == "normal") {
+      $("#editBox").text("")
+      $("#editBox").append("<a href='/suggest'>Suggest an Anime</a>")
+    }
+  });
 
   socket.emit("get entries");
   socket.on("got entries", entries => {

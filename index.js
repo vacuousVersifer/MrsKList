@@ -14,6 +14,7 @@ const Port = process.env.PORT;
 const SecretKey = process.env.SECRET_KEY;
 const EntriesPath = process.env.ENTRIES_PATH;
 const UsersPath = process.env.USERS_PATH;
+const SuggestionsPath = process.env.SUGGESTIONS_PATH;
 const Algorithm = process.env.ALGORITHM;
 
 const listener = server.listen(Port, () => {
@@ -42,6 +43,7 @@ let currentUsers = [];
 let clicks = parseInt(fs.readFileSync("clicks.txt", "utf-8"), 10);
 let entries = JSON.parse(fs.readFileSync(EntriesPath, "utf-8"));
 let users = JSON.parse(fs.readFileSync(UsersPath, "utf-8"));
+let suggestions = JSON.parse(fs.readFileSync(SuggestionsPath, "utf-8"));
 
 io.on("connection", socket => {
   socket.on("get clicks", () => {
@@ -120,7 +122,7 @@ io.on("connection", socket => {
     for(let key in users) {
       if(key == "count") continue;
       
-      let user = user[key];
+      let user = users[key];
       
       if(newCredentials.code == user.code) {
         socket.emit("register user code taken")

@@ -3,30 +3,32 @@
 $(document).ready(() => {
   const socket = io();
   
-  // Login
-  const loginForm = $("#loginForm");
-  const loginCode = $("#loginCode");
-  const loginPassword = $("#loginPassword");
+  // Suggestion Input
+  const suggestForm = $("#suggestForm");
+  const suggestName = $("#suggestName");
+  const suggestMust = $("#suggestionMust");
+  const suggestFunny = $("#suggestFunny");
+  const suggestCommit = $("#suggestCommit");
+  const suggestScary = $("#suggestScary");
   
-  // Register
-  const registerForm = $("#registerForm");
-  const registerName = $("#registerName")
-  const registerCode = $("#registerCode");
-  const registerPassword = $("#registerPassword");
-  const registerPasswordConfirm = $("#registerPasswordConfirm");
-  
-  loginForm.submit(e => {
+  suggestForm.submit(e => {
     e.preventDefault();
     
-    let submittedCredentials = {
-      code: loginCode.val(),
-      password: loginPassword.val()
+    let name = suggestName.val();
+    let must = suggestMust.is(':checked');
+    let funny = suggestFunny.is(':checked')
+    let commit = suggestCommit.is(':checked')
+    let scary = suggestScary.is(':checked')
+    
+    let suggestion = {
+      name,
+      must,
+      funny,
+      commit,
+      scary
     };
     
-    loginCode.val("");
-    loginPassword.val("");
-    
-    socket.emit("login attempt", submittedCredentials)
+    socket.emit("suggestion", submittedCredentials)
   })
   
   socket.on("login respond", results => {

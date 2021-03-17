@@ -67,6 +67,7 @@ io.on("connection", socket => {
   })
   
   socket.on("update suggestion", suggestionUpdate => {
+    console.log(suggestionUpdate);
     for(let key in suggestions) {
       if(key == "count") continue;
       
@@ -74,10 +75,19 @@ io.on("connection", socket => {
       
       if(suggestion.name == suggestionUpdate.name) {
         if(suggestionUpdate.status == "approve") {
+          entries.count++;
+          entries[entries.count] = suggestion;
+
+          fs.writeFileSync(EntriesPath, JSON.stringify(entries, null, 2));
+          // console.log(fs.readFileSync(EntriesPath))
+          
           socket.emit("suggestion approved", suggestionUpdate.name)
         } else {
           socket.emit("suggestion denied", suggestionUpdate.name)
         }
+
+        delete suggestions[key];
+        fs.writeFileSync(SuggestionsPath, JSON.stringify(suggestions, null, 2));
       }
     }
   })

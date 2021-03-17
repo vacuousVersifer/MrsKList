@@ -78,15 +78,4 @@ $(document).ready(() => {
   socket.on("suggestion approved", name => {
     console.log(name + " has been approved");
   });
-  
-  var array = [];
-
-$("tr.item input").each(function() {
-    array.push({
-        name: $(this).attr('class'),
-        value: $(this).val()
-    });
-});
-
-console.log(array);​
 });

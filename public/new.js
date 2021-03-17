@@ -41,10 +41,10 @@ $(document).ready(() => {
 
       let progress = entry.watched;
       let name = entry.name;
-      let must = entry.types.must;
-      let funny = entry.types.funny;
-      let commit = entry.types.commit;
-      let scary = entry.types.scary;
+      let must = entry.must;
+      let funny = entry.funny;
+      let commit = entry.commit;
+      let scary = entry.scary;
       let notes = entry.notes;
 
       let rowData = [progress, name, "", "", "", "", notes];

@@ -142,6 +142,10 @@ io.on("connection", socket => {
 
 function encrypt(text) {
   let iv = crypto.randomBytes(16);
+  
+  console.log(SecretKey.length)
+  console.log(iv.length)
+  
   let cipher = crypto.createCipheriv(Algorithm, SecretKey, iv);
 
   let encrypted = Buffer.concat([cipher.update(text), cipher.final()]);

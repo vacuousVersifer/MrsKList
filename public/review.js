@@ -32,11 +32,25 @@ $(document).ready(() => {
           let denyButton = $("<button>Deny</button>");
           
           approveButton.click(() => {
-            console.log("Approve")
+            socket.emit("update suggestion", {
+              name,
+              status: "approve"
+            })
+            
+            socket.on("suggestion approved", () => {
+              console.log(name + " has been approved");
+            })
           })
           
           denyButton.click(() => {
-            console.log("Deny")
+            socket.emit("update suggestion", {
+              name,
+              status: "deny"
+            })
+            
+            socket.on("suggestion denied", () => {
+              console.log(name + " has been denied");
+            })
           })  
           
           newRow = $("<td/>").append(approveButton);

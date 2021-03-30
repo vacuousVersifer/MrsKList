@@ -24,20 +24,11 @@ const listener = server.listen(Port, () => {
 app.use(express.static("public"));
 
 // Serves all the pages
-let lastAccessed = Date.now();
 app.get("/", (req, res) => {
-  if(!(lastAccessed - Date.now() < 1000)) {
-    res.sendFile(`${__dirname}/views/index.html`);
-  } else {
-    res.send("You are requesting too fast!");
-  }
+  res.sendFile(`${__dirname}/views/index.html`);
 });
 app.get("/:path", (req, res) => {
-  if(!(lastAccessed - Date.now() < 1000)) {
-    res.sendFile(`${__dirname}/views/${req.params.path}.html`);
-  } else {
-    res.send("You are requesting too fast!");
-  }
+  res.sendFile(`${__dirname}/views/${req.params.path}.html`);
 });
 
 // Databases

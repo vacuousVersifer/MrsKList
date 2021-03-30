@@ -33,7 +33,11 @@ app.get("/", (req, res) => {
   }
 });
 app.get("/:path", (req, res) => {
-  res.sendFile(`${__dirname}/views/${req.params.path}.html`);
+  if(!(lastAccessed - Date.now() < 1000)) {
+    res.sendFile(`${__dirname}/views/${req.params.path}.html`);
+  } else {
+    res.send("You are requesting too fast!");
+  }
 });
 
 // Databases

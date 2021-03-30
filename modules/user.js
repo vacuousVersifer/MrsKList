@@ -5,6 +5,7 @@ module.exports = {
     return users.getItemByKeyValuePair("code", code);
   },
   register: (credentials, users) => {
+    console.log(credentials)
     if(users.getItemByKeyValuePair("code", credentials.code) === -1) {
       return -1;
     }

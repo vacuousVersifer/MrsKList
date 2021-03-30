@@ -14,10 +14,10 @@ $(document).ready(() => {
       rowIndex++;
 
       let name = suggestion.name;
-      let must = suggestion.must;
-      let funny = suggestion.funny;
-      let commit = suggestion.commit;
-      let scary = suggestion.scary;
+      let must = suggestion.types.must;
+      let funny = suggestion.types.funny;
+      let commit = suggestion.types.commit;
+      let scary = suggestion.types.scary;
       let code = suggestion.code;
 
       let rowData = ["APPROVE/DENY", name, "", "", "", "", code];
@@ -32,14 +32,14 @@ $(document).ready(() => {
           let denyButton = $("<button>Deny</button>");
 
           approveButton.click(() => {
-            socket.emit("update suggestion", {
+            socket.emit("judge suggestion", {
               name,
               status: "approve"
             });
           });
 
           denyButton.click(() => {
-            socket.emit("update suggestion", {
+            socket.emit("judge suggestion", {
               name,
               status: "deny"
             });
@@ -70,12 +70,8 @@ $(document).ready(() => {
       });
     }
   });
-
-  socket.on("suggestion denied", name => {
-    console.log(name + " has been denied");
-  });
   
-  socket.on("suggestion approved", name => {
-    console.log(name + " has been approved");
+  socket.on("judge suggestions respond", responce => {
+    console.log(`${responce.name} has been ${(responce.result === "approved") ? "approved" : "denied"}`);
   });
 });

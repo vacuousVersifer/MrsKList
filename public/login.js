@@ -1,47 +1,52 @@
 /* globals io */
 
+// When the document is loaded
 $(document).ready(() => {
   const socket = io();
   
-  // Login
+  // Login elements
   const loginForm = $("#loginForm");
   const loginCode = $("#loginCode");
   const loginPassword = $("#loginPassword");
   
-  // Register
+  // Register elements
   const registerForm = $("#registerForm");
-  const registerName = $("#registerName")
+  const registerName = $("#registerName");
   const registerCode = $("#registerCode");
   const registerPassword = $("#registerPassword");
   const registerPasswordConfirm = $("#registerPasswordConfirm");
   
+  // When the user submits the login form
   loginForm.submit(e => {
     e.preventDefault();
     
+    // Wrap the submitted credentials into an object
     let submittedCredentials = {
       code: loginCode.val(),
       password: loginPassword.val()
     };
     
+    // Clears the form
     loginCode.val("");
     loginPassword.val("");
     
-    socket.emit("login attempt", submittedCredentials)
-  })
+    // Submits to the server
+    socket.emit("login", submittedCredentials);
+  });
   
   socket.on("login respond", results => {
-    let result = results.result;
-    let key = results.key;
+    let found = results.found;
+    let token = results.token;
     
-    if(result) {
-      sessionStorage.setItem("key", key);
+    if(found) {
+      localStorage.setItem("token", token);
       window.location.replace("/");
     } else {
-      $("#loginError").text("Sorry, those credentials are invalid!")
+      $("#loginError").text("Sorry, those credentials are invalid!");
     }
-  })
+  });
   
-  let submittedCredentials
+  let submittedCredentials;
   
   registerForm.submit(e => {
     e.preventDefault();
@@ -87,7 +92,7 @@ $(document).ready(() => {
         code,
         password,
         name
-      }
+      };
 
       submittedCredentials = {
         code,
@@ -99,15 +104,15 @@ $(document).ready(() => {
       registerPasswordConfirm.val("");
       registerName.val("");
 
-      socket.emit("register user", newCredentials)
+      socket.emit("register user", newCredentials);
     }
-  })
+  });
   
   socket.on("register user completed", () => {
-    socket.emit("login attempt", submittedCredentials)
-  })
+    socket.emit("login attempt", submittedCredentials);
+  });
   
   socket.on("register user code taken", () => {
     $("#registerError").text("That code is already taken!");
-  })
+  });
 });

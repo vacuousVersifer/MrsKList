@@ -2,30 +2,22 @@
 
 $(document).ready(() => {
   const socket = io();
-  
+
   const loginLink = $("#loginLink");
-  const key = sessionStorage.getItem("key");
-  let currentUser;
+  const editBox = $("#editBox");
 
-  if(key) {
-    loginLink.text("Logout")
-
-    socket.emit("get current user", key)
-  }
-
-  socket.on("got current user", recievedCurrentUser => {
-    currentUser = recievedCurrentUser
-
-    if(!currentUser) {
-      $("#editBox").text("Please resign in");
-    } else if(currentUser.type == "normal") {
-      $("#editBox").text("")
-      $("#editBox").append("<a href='/suggest'>Suggest an Anime</a>")
-    } else if(currentUser.type == "admin") {
-      $("#editBox").text("")
-      $("#editBox").append("<a href='/suggest'>Suggest an Anime</a>")
-      $("#editBox").append("<br>")
-      $("#editBox").append("<a href='/review'>Review Suggestions</a>")
+  let token = localStorage.getItem("token");
+  
+  loginLink.text("Logout");
+  socket.emit("get user info", token);
+  socket.on("get user info respond", user => {
+    switch(user.type) {
+    case "normal":
+      editBox.text("").append("<a href='/suggest'>Suggest an Anime</a>");
+      break;
+    case "admin":
+      editBox.text("").append("<a href='/suggest'>Suggest an Anime</a><br><a href='/review'>Review Suggestions</a>");
+      break;
     }
   });
 
@@ -41,13 +33,12 @@ $(document).ready(() => {
 
       let progress = entry.watched;
       let name = entry.name;
-      let must = entry.must;
-      let funny = entry.funny;
-      let commit = entry.commit;
-      let scary = entry.scary;
-      let notes = entry.notes;
+      let must = entry.types?.must || entry.must;
+      let funny = entry.types?.funny || entry.funny;
+      let commit = entry.types?.commit || entry.commit;
+      let scary = entry.types?.scary || entry.scary;
 
-      let rowData = [progress, name, "", "", "", "", notes];
+      let rowData = [progress, name, "", "", "", ""];
 
       let lastRow = $("<tr/>").appendTo(table.find("tbody:last"));
       $.each(rowData, (colIndex, c) => {

@@ -1,205 +1,110 @@
-const express = require("express");
-const app = express();
+// Server setup
+const express = require("express"),
+  app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
 
-const http = require("http");
-const server = http.createServer(app);
-
-const socketio = require("socket.io");
-const io = socketio(server);
-
+// Enviromental Constants
 const dotenv = require("dotenv");
 dotenv.config();
 
 const Port = process.env.PORT;
-const SecretKey = process.env.SECRET_KEY;
+
 const EntriesPath = process.env.ENTRIES_PATH;
 const UsersPath = process.env.USERS_PATH;
 const SuggestionsPath = process.env.SUGGESTIONS_PATH;
-const Algorithm = process.env.ALGORITHM;
+const TokensPath = process.env.TOKENS_PATH;
 
+// Listener
 const listener = server.listen(Port, () => {
   console.log(`Listening on port ${listener.address().port}`);
 });
 
+// Static Files
 app.use(express.static("public"));
+
+// Serves all the pages
 app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/views/index.html`);
 });
-app.get("/login", (req, res) => {
-  res.sendFile(`${__dirname}/views/login.html`);
-});
-app.get("/suggest", (req, res) => {
-  res.sendFile(`${__dirname}/views/suggest.html`);
-});
-app.get("/review", (req, res) => {
-  res.sendFile(`${__dirname}/views/review.html`);
+app.get("/:path", (req, res) => {
+  res.sendFile(`${__dirname}/views/${req.params.path}.html`);
 });
 
-const fs = require("fs");
-const crypto = require("crypto");
+// Databases
+let DB = require("./modules/db.js");
 
-let currentUsers = [];
+let entries = new DB(EntriesPath);
+let users = new DB(UsersPath);
+let suggestions = new DB(SuggestionsPath);
+let tokens = new DB(TokensPath);
 
-let clicks = parseInt(fs.readFileSync("clicks.txt", "utf-8"), 10);
-let entries = JSON.parse(fs.readFileSync(EntriesPath, "utf-8"));
-let users = JSON.parse(fs.readFileSync(UsersPath, "utf-8"));
-let suggestions = JSON.parse(fs.readFileSync(SuggestionsPath, "utf-8"));
+// All of the processes external files
+const loginHandler = require("./modules/login.js");
+const tokenHandler = require("./modules/token.js");
+const suggestionHandler = require("./modules/suggestion.js");
+const userHandler = require("./modules/user.js");
 
 io.on("connection", socket => {
-  socket.on("get clicks", () => {
-    socket.emit("got clicks", clicks);
+  socket.on("token verify", token => {
+    // Verifies that a token is valid
+    socket.emit("token verify respond", tokenHandler.process(token, tokens));
   });
 
-  socket.on("clicked", () => {
-    clicks++;
-    fs.writeFileSync("clicks.txt", clicks);
-  });
-  
   socket.on("get entries", () => {
-    socket.emit("got entries", entries)
+    // Gets all entries
+    socket.emit("got entries", entries.getItemAll());
   });
-  
+
   socket.on("get suggestions", () => {
-    socket.emit("got suggestions", suggestions)
-  })
-  
-  socket.on("update suggestion", suggestionUpdate => {
-    console.log(suggestionUpdate);
-    for(let key in suggestions) {
-      if(key == "count") continue;
-      
-      let suggestion = suggestions[key];
-      
-      if(suggestion.name == suggestionUpdate.name) {
-        if(suggestionUpdate.status == "approve") {
-          entries.count++;
-          entries[entries.count] = suggestion;
-
-          fs.writeFileSync(EntriesPath, JSON.stringify(entries, null, 2));
-          // console.log(fs.readFileSync(EntriesPath))
-          
-          socket.emit("suggestion approved", suggestionUpdate.name)
-        } else {
-          socket.emit("suggestion denied", suggestionUpdate.name)
-        }
-
-        delete suggestions[key];
-        fs.writeFileSync(SuggestionsPath, JSON.stringify(suggestions, null, 2));
-      }
-    }
-  })
-  
-  socket.on("login attempt", credentials => {
-    let found = false;
-    for(let i = 1; i <= users.count; i++) {
-      let user = users[i];
-
-      let decryptedPassword = decrypt({content: user.password, iv: user.id});
-      
-      let codeCorrect = (credentials.code == user.code);
-      let passwordCorrect = (credentials.password == decryptedPassword);
-      
-      if(codeCorrect && passwordCorrect) {
-        found = true;
-      }
-    }
-    
-    crypto.randomBytes(48, (err, buffer) => {
-      let key = buffer.toString("hex");
-
-      let newCurrentUser = {
-        key,
-        code: credentials.code
-      }
-
-      currentUsers.push(newCurrentUser);
-
-      let results = {
-        result: found,
-        key: found ? key : undefined
-      }
-      
-      socket.emit("login respond", results)
-    })
+    // Gets all suggestions
+    socket.emit("got suggestions", suggestions.getItemAll());
   });
 
-  socket.on("get current user", key => {
-    let currentUserToReturn = undefined;
+  socket.on("judge suggestion", suggestionUpdate => {
+    // Processes a suggestions judgement
+    socket.emit(
+      "judge suggestion respond",
+      suggestionHandler.judge(
+        suggestionUpdate.name,
+        suggestionUpdate.status,
+        suggestions,
+        entries
+      )
+    );
+  });
 
-    for(let i = 0; i < currentUsers.length; i++) {
-      let currentUser = currentUsers[i];
+  // Processes a login attempt
+  socket.on("login", credentials => {
+    socket.emit("login respond", loginHandler.process(credentials, tokens));
+  });
 
-      if(currentUser.key == key) {
-        for(let key in users) {
-          let user = users[key];
+  // Current Users: Get
+  socket.on("get user info", token => {
+    let tokenUser = tokenHandler.process(token, tokens);
+    let user = userHandler.getUser(tokenUser.code, users);
 
-          if(currentUser.code == user.code) {
-            currentUserToReturn = {
-              code: currentUser.code,
-              type: user.type
-            }
-          }
-        }
-      }
-    }
-
-    socket.emit("got current user", currentUserToReturn);
-  })
-
-  socket.on("register user", newCredentials => {
-    for(let key in users) {
-      if(key == "count") continue;
-      
-      let user = users[key];
-      
-      if(newCredentials.code == user.code) {
-        socket.emit("register user code taken")
-        return;
-      }
-    }
-    
-    let hash = encrypt(newCredentials.password);
-    let newUser = {
-      name: newCredentials.name,
-      code: newCredentials.code,
-      password: hash.content,
-      id: hash.iv,
-      type: "normal"
+    let info = {
+      type: user.type,
+      code: user.code
     };
 
-    users.count++;
-    users[users.count] = newUser;
-    fs.writeFileSync(UsersPath, JSON.stringify(users, null, 2));
-    
-    socket.emit("register user completed")
-  })
-  
+    socket.emit("get user info respond", info);
+  });
+
+  // Users: Post
+  socket.on("register user", newCredentials => {
+    let newUser = userHandler.register(newCredentials, users);
+    if(newUser !== -1) {
+      socket.emit("register user completed");
+    } else {
+      socket.emit("register user code taken");
+    }
+  });
+
   socket.on("suggestion", suggestion => {
-    suggestions.count++;
-    suggestions[suggestions.count] = suggestion;
-    fs.writeFileSync(SuggestionsPath, JSON.stringify(suggestions, null, 2));
-    
-    socket.emit("suggestion respond", true)
-  })
+    suggestions.addItem(suggestion);
+
+    socket.emit("suggestion respond", true);
+  });
 });
-
-function encrypt(text) {
-  let iv = crypto.randomBytes(16);
-  
-  let cipher = crypto.createCipheriv(Algorithm, SecretKey, iv);
-
-  let encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
-
-  return {
-    iv: iv.toString("hex"),
-    content: encrypted.toString("hex")
-  };
-};
-
-function decrypt(hash) {
-    let decipher = crypto.createDecipheriv(Algorithm, SecretKey, Buffer.from(hash.iv, "hex"));
-
-    let decrpyted = Buffer.concat([decipher.update(Buffer.from(hash.content, "hex")), decipher.final()]);
-
-    return decrpyted.toString();
-};

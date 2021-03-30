@@ -5,19 +5,12 @@ $(document).ready(() => {
 
   const suggestResponce = $("#suggestResponce");
 
-  const key = sessionStorage.getItem("key");
+  let token = localStorage.getItem("token");
+  let user;
 
-  if (key) {
-    socket.emit("get current user", key);
-  }
-
-  let currentUser;
-  socket.on("got current user", recievedCurrentUser => {
-    currentUser = recievedCurrentUser;
-
-    if (!currentUser) {
-      suggestResponce.text("You must login first!");
-    }
+  socket.emit("get user info", token);
+  socket.on("get user info respond", userInfo => {
+    user = userInfo;
   });
 
   // Suggestion Input
@@ -39,24 +32,24 @@ $(document).ready(() => {
 
     let suggestion = {
       name,
-      must,
-      funny,
-      commit,
-      scary,
-      code: currentUser.code,
-      watched: "Nope"
+      types: {
+        must,
+        funny,
+        commit,
+        scary
+      }, 
+      code: user.code,
+      watched: "Not started"
     };
 
-    if (currentUser) {
-      socket.emit("suggestion", suggestion);
-    }
+    socket.emit("suggestion", suggestion);
   });
 
   socket.on("suggestion respond", result => {
     if (result) {
       suggestResponce.text("The anime has been suggested, and will hopefully appear shortly!");
     } else {
-      $("#loginError").text("Something went wrong! File an issue (See main page for a how too on that)");
+      $("#loginError").text("Something went wrong! File an issue (See main page for a how to on that)");
     }
   });
 });

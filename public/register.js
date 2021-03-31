@@ -11,7 +11,6 @@ $(document).ready(() => {
   const registerPassword = $("#registerPassword");
   const registerPasswordConfirm = $("#registerPasswordConfirm");
 
-  let submittedCredentials;
   registerForm.submit(e => {
     e.preventDefault();
 
@@ -58,11 +57,6 @@ $(document).ready(() => {
         code,
         password,
         name
-      };
-
-      submittedCredentials = {
-        code,
-        password
       };
 
       registerCode.val("");

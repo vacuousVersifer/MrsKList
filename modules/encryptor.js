@@ -8,6 +8,6 @@ module.exports = {
     let cipher = crypto.createHash(Algorithm, SecretKey);
     let encrypted = cipher.update(text).digest("hex");
 
-    return encrypted
+    return encrypted;
   }
 };

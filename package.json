@@ -13,7 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "echo 'Run npm start startProject'",
     "projectStart": "node .",
-    "nodemonStart": "nodemon --ignore ./.data/"
+    "nodemonStart": "nodemon --ignore ./.data/",
+    "lint": "./node_modules/.bin/eslint . --fix"
   },
   "keywords": [
     "anime",

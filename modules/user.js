@@ -7,7 +7,6 @@ module.exports = {
   register: (credentials, users) => {
     if(users.getItemByKeyValuePair("code", credentials.code) !== -1) return -1;
 
-    console.log(credentials)
     let hash = encryptor.encrypt(credentials.password);
     let newUser = {
       name: credentials.name,

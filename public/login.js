@@ -3,51 +3,51 @@
 // When the document is loaded
 $(document).ready(() => {
   const socket = io();
-  
+
   // Login elements
   const loginForm = $("#loginForm");
   const loginCode = $("#loginCode");
   const loginPassword = $("#loginPassword");
-  
+
   // Register elements
   const registerForm = $("#registerForm");
   const registerName = $("#registerName");
   const registerCode = $("#registerCode");
   const registerPassword = $("#registerPassword");
   const registerPasswordConfirm = $("#registerPasswordConfirm");
-  
+
   // When the user submits the login form
   loginForm.submit(e => {
     e.preventDefault();
-    
+
     // Wrap the submitted credentials into an object
     let submittedCredentials = {
       code: loginCode.val(),
       password: loginPassword.val()
     };
-    
+
     // Clears the form
     loginCode.val("");
     loginPassword.val("");
-    
+
     // Submits to the server
     socket.emit("login", submittedCredentials);
   });
-  
+
   socket.on("login respond", results => {
     let found = results.found;
     let token = results.token;
-    
-    if(found) {
+
+    if (found) {
       localStorage.setItem("token", token);
       window.location.replace("/");
     } else {
       $("#loginError").text("Sorry, those credentials are invalid!");
     }
   });
-  
+
   let submittedCredentials;
-  
+
   registerForm.submit(e => {
     e.preventDefault();
 
@@ -59,35 +59,37 @@ $(document).ready(() => {
     let name = registerName.val();
 
     let codeValid = true;
-    let passwordValid = (password == passwordConfirm);
-    let nameValid = (!name.length < 1);
+    let passwordValid = password == passwordConfirm;
+    let nameValid = !name.length < 1;
 
-    if(!nameValid) {
+    if (!nameValid) {
       $("#registerError").text("You must enter a value for your name");
     }
 
-    if(!(password && passwordConfirm)) {
+    if (!(password && passwordConfirm)) {
       $("#registerError").text("You must enter values for your passwords");
     }
 
-    if(!passwordValid) {
+    if (!passwordValid) {
       $("#registerError").text("Your passwords do not match");
     }
 
-    for(let i = 0; i < code.length; i++) {
-      if(!Number.isInteger(parseInt(code[i]))) codeValid = false;
+    for (let i = 0; i < code.length; i++) {
+      if (!Number.isInteger(parseInt(code[i]))) codeValid = false;
     }
 
-    if(!codeValid) {
-      $("#registerError").text("Your code should be a continuous string of numbers, with no spaces");
+    if (!codeValid) {
+      $("#registerError").text(
+        "Your code should be a continuous string of numbers, with no spaces"
+      );
     }
 
-    if(code.length < 1) {
+    if (code.length < 1) {
       codeValid = false;
       $("#registerError").text("You need to enter something for your code");
     }
 
-    if(codeValid && passwordValid && nameValid) {
+    if (codeValid && passwordValid && nameValid) {
       let newCredentials = {
         code,
         password,
@@ -107,11 +109,11 @@ $(document).ready(() => {
       socket.emit("register user", newCredentials);
     }
   });
-  
-  socket.on("register user completed", submittedCredentials => {
-    socket.emit("login", submittedCredentials);
+
+  socket.on("register user completed", () => {
+    $("#registerError").text("You can now sign in");
   });
-  
+
   socket.on("register user code taken", () => {
     $("#registerError").text("That code is already taken!");
   });

@@ -16,8 +16,6 @@ module.exports = {
       type: "normal"
     };
     
-    console.log(newUser)
-
     users.addItem(newUser);
   }
 };

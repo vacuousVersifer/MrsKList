@@ -96,7 +96,7 @@ io.on("connection", socket => {
   socket.on("register user", newCredentials => {
     let newUser = userHandler.register(newCredentials, users);
     if(newUser !== -1) {
-      socket.emit("register user completed", newCredentials);
+      socket.emit("register user completed");
     } else {
       socket.emit("register user code taken");
     }

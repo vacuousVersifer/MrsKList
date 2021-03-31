@@ -76,7 +76,7 @@ io.on("connection", socket => {
 
   // Processes a login attempt
   socket.on("login", credentials => {
-    socket.emit("login respond", loginHandler.process(credentials, tokens));
+    socket.emit("login respond", loginHandler.process(credentials, users, tokens));
   });
 
   // Current Users: Get

@@ -7,7 +7,7 @@ const encryptor = require("./encryptor");
 let users = new DB(UsersPath);
 
 module.exports = {
-  process: (credentials, tokens) => {
+  process: (credentials, users, tokens) => {
     let user = users.getItemByKeyValuePair("code", credentials.code);
     console.log(["Getting user", user])
 

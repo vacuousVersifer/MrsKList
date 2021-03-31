@@ -8,6 +8,9 @@ module.exports = {
     if(users.getItemByKeyValuePair("code", credentials.code) !== -1) return -1;
 
     let hash = encryptor.encrypt(credentials.password);
+    
+    console.log(hash);
+    
     let newUser = {
       name: credentials.name,
       code: credentials.code,
@@ -15,6 +18,8 @@ module.exports = {
       id: hash.iv,
       type: "normal"
     };
+    
+    console.log(newUser)
 
     users.addItem(newUser);
   }

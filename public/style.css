@@ -78,7 +78,7 @@ th {
 }
 
 .loginButton {
-  padding: 20px 0px 20px 20px;
+  padding: 20px;
   float: right;
 }
 
@@ -88,6 +88,12 @@ th {
 }
 
 #editBox {
-  padding: 20px 20px 20px 0px;
-  float: left;
+  padding: 20px;
+/*   float: left; */
+}
+
+.footer {
+/*   background: lightgray; */
+  border-top: 5px lightgray solid;
+  margin: 10px;
 }

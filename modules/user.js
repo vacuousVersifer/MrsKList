@@ -9,16 +9,12 @@ module.exports = {
 
     let hash = encryptor.encrypt(credentials.password);
     
-    console.log(hash);
-    
     let newUser = {
       name: credentials.name,
       code: credentials.code,
       password: hash,
       type: "normal"
     };
-    
-    console.log(newUser)
 
     users.addItem(newUser);
   }

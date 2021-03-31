@@ -108,8 +108,8 @@ $(document).ready(() => {
     }
   });
   
-  socket.on("register user completed", () => {
-    socket.emit("login attempt", submittedCredentials);
+  socket.on("register user completed", submittedCredentials => {
+    socket.emit("login", submittedCredentials);
   });
   
   socket.on("register user code taken", () => {

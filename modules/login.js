@@ -11,14 +11,10 @@ module.exports = {
     let user = users.getItemByKeyValuePair("code", credentials.code);
 
     if (user !== -1) {
-      let password = encryptor.decrypt({
-        content: user.password,
-        iv: user.id
-      });
-      
       let token = crypto.randomBytes(48).toString("hex");
 
-      if (password === credentials.password) {
+      let password = encryptor.encrypt(credentials.password);
+      if (user.password === password) {
         tokens.addItem({
           token,
           code: user.code

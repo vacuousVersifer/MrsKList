@@ -17,5 +17,7 @@ module.exports = {
     };
     
     users.addItem(newUser);
+    
+    console.log(["New user - user.js", newUser, users]);
   }
 };

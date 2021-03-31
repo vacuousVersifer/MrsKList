@@ -95,7 +95,6 @@ io.on("connection", socket => {
   // Users: Post
   socket.on("register user", newCredentials => {
     let newUser = userHandler.register(newCredentials, users);
-    console.log(newUser);
     if(newUser !== -1) {
       socket.emit("register user completed");
     } else {

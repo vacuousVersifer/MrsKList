@@ -1,7 +1,7 @@
 {
   "name": "mrs-j-anime-to-watch-list",
   "author": "vacuousVersifer",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A list of anime our teacher should read",
   "main": "index.js",
   "dependencies": {
@@ -11,8 +11,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "echo 'Run npm start startProject'",
-    "projectStart": "node .",
+    "start": "node .",
     "nodemonStart": "nodemon --ignore ./.data/",
     "lint": "./node_modules/.bin/eslint . --fix"
   },

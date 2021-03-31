@@ -14,8 +14,7 @@ module.exports = {
     let newUser = {
       name: credentials.name,
       code: credentials.code,
-      password: hash.content,
-      id: hash.iv,
+      password: hash,
       type: "normal"
     };
     

@@ -15,6 +15,8 @@ module.exports = {
       password: hash,
       type: "normal"
     };
+    
+    console.log(newUser)
 
     users.addItem(newUser);
   }

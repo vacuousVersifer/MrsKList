@@ -5,13 +5,9 @@ const crypto = require("crypto");
 
 module.exports = {
   encrypt: text => {
-    console.log(["Got text", text])
     let iv = crypto.randomBytes(16);
-    console.log([iv]);
     let cipher = crypto.createCipheriv(Algorithm, SecretKey, iv);
-    console.log([iv, cipher]);
     let encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
-    console.log([iv, cipher, encrypted]);
 
     return {
       iv: iv.toString("hex"),

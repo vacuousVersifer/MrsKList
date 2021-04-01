@@ -5,6 +5,7 @@
   --dblue: #3A0CA3;
   --marineblue: #4361EE;
   --lightblue: #4CC9F0;
+  --lightgray: #ededed;
 }
 
 body {
@@ -32,20 +33,15 @@ th {
 }
 
 .watched,
-.name {
+.name,
+.notes {
   background: var(--pink);
   border-bottom: 5px solid black;
 }
 
 .type {
-  background: var(--purple);
+  background: var(--pink);
 }
-
-.notes {
-  background: var(--aqua);
-  border-bottom: 5px solid black;
-}
-
 .must.header,
 .commit.header, 
 .funny.header, 
@@ -55,19 +51,18 @@ th {
   border-bottom: 5px solid black;
 }
 
-
 .must,
 .shadow.must {
   background: var(--pink);
 }
 
-.commit,
-.shadow.commit {
+.funny,
+.shadow.funny {
   background: var(--purple);
 }
 
-.funny,
-.shadow.funny {
+.commit,
+.shadow.commit {
   background: var(--blue);
 }
 

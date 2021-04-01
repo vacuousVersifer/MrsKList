@@ -3,3 +3,5 @@
 
 A list of shows my students want my teacher to watch
 I made this as a way to learn how to do databases and social media-like things
+
+There will probs only be like two people who ever use this =L

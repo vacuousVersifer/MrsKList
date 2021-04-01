@@ -18,9 +18,11 @@ $(document).ready(() => {
       let funny = suggestion.types.funny;
       let commit = suggestion.types.commit;
       let scary = suggestion.types.scary;
+      let adult = suggestion.types.adult;
+      let romance = suggestion.types.romance;
       let code = suggestion.code;
 
-      let rowData = ["APPROVE/DENY", name, "", "", "", "", code];
+      let rowData = ["APPROVE/DENY", name, "", "", "", "", "", "", code];
 
       let lastRow = $("<tr/>").appendTo(table.find("tbody:last"));
       $.each(rowData, (colIndex, c) => {
@@ -64,6 +66,12 @@ $(document).ready(() => {
         }
         if (colIndex == 5 && scary) {
           newRow.addClass("scary");
+        }
+        if (colIndex == 6 && adult) {
+          newRow.addClass("adult");
+        }
+        if (colIndex == 7 && romance) {
+          newRow.addClass("romance");
         }
 
         lastRow.append(newRow);

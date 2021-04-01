@@ -33,12 +33,14 @@ $(document).ready(() => {
 
       let progress = entry.watched;
       let name = entry.name;
-      let must = entry.types?.must || entry.must;
-      let funny = entry.types?.funny || entry.funny;
-      let commit = entry.types?.commit || entry.commit;
-      let scary = entry.types?.scary || entry.scary;
+      let must = entry.types.must;
+      let funny = entry.types.funny;
+      let commit = entry.types.commit;
+      let scary = entry.types.scary;
+      let adult = entry.types?.adult;
+      let romance = entry.types?.romance;
 
-      let rowData = [progress, name, "", "", "", ""];
+      let rowData = [progress, name, "", "", "", "", "", ""];
 
       let lastRow = $("<tr/>").appendTo(table.find("tbody:last"));
       $.each(rowData, (colIndex, c) => {
@@ -59,6 +61,12 @@ $(document).ready(() => {
         } 
         if(colIndex == 5 && scary) {
           newRow.addClass("scary");
+        } 
+        if(colIndex == 6 && adult) {
+          newRow.addClass("adult");
+        } 
+        if(colIndex == 7 && romance) {
+          newRow.addClass("romance");
         } 
         
         lastRow.append(newRow);

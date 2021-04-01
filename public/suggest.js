@@ -20,6 +20,9 @@ $(document).ready(() => {
   const suggestFunny = $("#suggestFunny");
   const suggestCommit = $("#suggestCommit");
   const suggestScary = $("#suggestScary");
+  const suggestAdult = $("#suggestAdult");
+  const suggestRomance = $("#suggestRomance");
+
 
   suggestForm.submit(e => {
     e.preventDefault();
@@ -29,6 +32,8 @@ $(document).ready(() => {
     let funny = suggestFunny.is(":checked");
     let commit = suggestCommit.is(":checked");
     let scary = suggestScary.is(":checked");
+    let adult = suggestAdult.is(":checked");
+    let romance = suggestRomance.is(":checked");
 
     let suggestion = {
       name,
@@ -36,7 +41,9 @@ $(document).ready(() => {
         must,
         funny,
         commit,
-        scary
+        scary,
+        adult,
+        romance
       }, 
       code: user.code,
       watched: "Not started"
@@ -47,7 +54,7 @@ $(document).ready(() => {
 
   socket.on("suggestion respond", result => {
     if (result) {
-      suggestResponce.text("The anime has been suggested, and will hopefully appear shortly!");
+      suggestResponce.text("The show/anime has been suggested, and will hopefully appear shortly!");
     } else {
       $("#loginError").text("Something went wrong! File an issue (See main page for a how to on that)");
     }

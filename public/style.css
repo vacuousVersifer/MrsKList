@@ -1,9 +1,10 @@
 :root {
-  --pink: #f72585;
-  --purple: #480ca8;
-  --periwinkle: #3f37c9;
-  --aqua: #4cc9f0;
-  --lightgray: #f3f3f3;
+  --pink: #F72585;
+  --purple: #7209B7;
+  --blue: #480CA8;
+  --dblue: #3A0CA3;
+  --marineblue: #4361EE;
+  --lightblue: #4CC9F0;
 }
 
 body {
@@ -37,7 +38,7 @@ th {
 }
 
 .type {
-  background: var(--periwinkle);
+  background: var(--purple);
 }
 
 .notes {
@@ -48,7 +49,9 @@ th {
 .must.header,
 .commit.header, 
 .funny.header, 
-.scary.header {
+.scary.header,
+.adult.header, 
+.romance.header {
   border-bottom: 5px solid black;
 }
 
@@ -60,17 +63,27 @@ th {
 
 .commit,
 .shadow.commit {
-  background: var(--periwinkle);
+  background: var(--purple);
 }
 
 .funny,
 .shadow.funny {
-  background: var(--purple);
+  background: var(--blue);
 }
 
 .scary,
 .shadow.scary {
-  background: var(--aqua);
+  background: var(--dblue);
+}
+
+.adult,
+.shadow.adult {
+  background: var(--marineblue);
+}
+
+.romance,
+.shadow.romance {
+  background: var(--lightblue);
 }
 
 .shadow {

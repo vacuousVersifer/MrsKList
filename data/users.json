@@ -1,0 +1,14 @@
+{
+  "1": {
+    "name": "Bruce",
+    "code": "687676",
+    "password": "02adc9b1dc1d64f0fd8e324734c9bc79e5328e6f",
+    "type": "admin"
+  },
+  "2": {
+    "name": "agbby",
+    "code": "705847",
+    "password": "0e987e0ba5689d2c9248aec180745933cc6044ba",
+    "type": "normal"
+  }
+}

@@ -1,0 +1,483 @@
+{
+  "1": {
+    "name": "Assassination Classroom",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "2": {
+    "name": "Attack on Titan",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "3": {
+    "name": "Dr. Stone",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "4": {
+    "name": "Dragon Ball Super",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "5": {
+    "name": "Dragon Ball Z",
+    "types": {
+      "must": true,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "6": {
+    "name": "Iuyasha",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "7": {
+    "name": "Jojo's Bizarre Adventure",
+    "types": {
+      "must": true,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "8": {
+    "name": "My Hero Academia",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "9": {
+    "name": "Naruto/Shipp.",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": true,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "10": {
+    "name": "Tokyo Ghoul",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "11": {
+    "name": "Black Butler",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": true,
+      "scary": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "12": {
+    "name": "Bleach",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": true,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "13": {
+    "name": "Blood C",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": false,
+      "scary": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "14": {
+    "name": "Cell at Work!",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "15": {
+    "name": "Death Note",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": true,
+      "scary": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "16": {
+    "name": "Demon Slayer",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": true,
+      "scary": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "17": {
+    "name": "Free!",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "18": {
+    "name": "Haikyu!!",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "19": {
+    "name": "Hunter x Hunter",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": false,
+      "scary": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "20": {
+    "name": "Maid Sama",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "21": {
+    "name": "One Piece",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": true,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "22": {
+    "name": "One Punch Man",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "23": {
+    "name": "Ouran HS Host Club",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "24": {
+    "name": "The Promise Neverland",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "25": {
+    "name": "Yuri!! on Ice",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "26": {
+    "name": "Miraculous & Ladybug",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "27": {
+    "name": "Highrise Invasion",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": false,
+      "scary": false,
+      "adult": true,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "28": {
+    "name": "The 100",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": true,
+      "scary": true,
+      "adult": true,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "29": {
+    "name": "Scrubs",
+    "types": {
+      "must": true,
+      "funny": true,
+      "commit": false,
+      "scary": false,
+      "adult": false,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "30": {
+    "name": "Julie and the Phantoms",
+    "types": {
+      "must": true,
+      "funny": true,
+      "commit": false,
+      "scary": false,
+      "adult": false,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "31": {
+    "name": "The Vampire Diaries",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": true,
+      "adult": false,
+      "romance": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "32": {
+    "name": "Criminal Minds",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": true,
+      "scary": true,
+      "adult": false,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "33": {
+    "name": "The Flash",
+    "types": {
+      "must": true,
+      "funny": true,
+      "commit": false,
+      "scary": false,
+      "adult": false,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "34": {
+    "name": "Arrow",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": true,
+      "scary": true,
+      "adult": false,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "35": {
+    "name": "The Politician",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": true,
+      "adult": false,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "36": {
+    "name": "Grey's Anatomy",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": true,
+      "scary": true,
+      "adult": false,
+      "romance": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "37": {
+    "name": "Brooklyn Nine Nine",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false,
+      "adult": false,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "38": {
+    "name": "New Girl",
+    "types": {
+      "must": true,
+      "funny": true,
+      "commit": false,
+      "scary": false,
+      "adult": false,
+      "romance": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "39": {
+    "name": "Schitt's Creek",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false,
+      "adult": true,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "40": {
+    "name": "The Good Place",
+    "types": {
+      "must": false,
+      "funny": true,
+      "commit": false,
+      "scary": false,
+      "adult": false,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "41": {
+    "name": "Ginny and Georgia",
+    "types": {
+      "must": true,
+      "funny": false,
+      "commit": false,
+      "scary": false,
+      "adult": true,
+      "romance": false
+    },
+    "code": "687676",
+    "watched": "Not started"
+  }
+}

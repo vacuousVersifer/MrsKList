@@ -1,0 +1,28 @@
+{
+  "1": {
+    "name": "Test",
+    "types": {
+      "must": true,
+      "funny": true,
+      "commit": true,
+      "scary": true,
+      "adult": true,
+      "romance": true
+    },
+    "code": "687676",
+    "watched": "Not started"
+  },
+  "2": {
+    "name": "Your name",
+    "types": {
+      "must": false,
+      "funny": false,
+      "commit": false,
+      "scary": false,
+      "adult": false,
+      "romance": false
+    },
+    "code": "705847",
+    "watched": "Not started"
+  }
+}

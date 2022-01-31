@@ -2,10 +2,5 @@
 .glitchdotcom.json
 
 node_modules/
-package-lock.json
 
-.env
 .data/
-
-.eslintrc.json
-.gitconfig

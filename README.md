@@ -1,4 +1,7 @@
-# Mrs. K's List 
+# Mrs. K's List o' Shows
+`vacuousVersifer/mrs-k-list`
 
-A list of shows (mostly anime) my class put together for my old Honors Biology teacher.
-Broken
+A list of shows my students want my teacher to watch
+I made this as a way to learn how to do databases and social media-like things
+
+There will probs only be like two people who ever use this =L
